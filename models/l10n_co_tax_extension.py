@@ -227,6 +227,7 @@ class AccountInvoice(models.Model):
                                     'name': tax['name'],
                                     'tax_id': tax['id'],
                                     'amount': tax['amount'],
+                                    'base': tax['base'],
                                     'manual': False,
                                     'sequence': tax['sequence'],
                                     'account_analytic_id': tax['analytic'] or False,
@@ -239,6 +240,7 @@ class AccountInvoice(models.Model):
                                     tax_grouped[key] = val
                                 else:
                                     tax_grouped[key]['amount'] += val['amount']
+                                    tax_grouped[key]['base'] += val['base']
                     if records:
                           
                         for loc in records:
@@ -257,6 +259,7 @@ class AccountInvoice(models.Model):
                                             'name': tax['name'],
                                             'tax_id': tax['id'],
                                             'amount': tax['amount'],
+                                            'base': tax['base'],
                                             'manual': False,
                                             'sequence': tax['sequence'],
                                             'account_analytic_id': tax['analytic'] or False,
@@ -269,6 +272,7 @@ class AccountInvoice(models.Model):
                                             tax_grouped[key] = val
                                         else:
                                             tax_grouped[key]['amount'] += val['amount']
+                                            tax_grouped[key]['base'] += val['base']
 
             if self.fiscal_position_id:
                 fp = self.env['account.fiscal.position'].search([('id','=',self.fiscal_position_id.id)])
@@ -300,6 +304,7 @@ class AccountInvoice(models.Model):
                         'name': tax['name'],
                         'tax_id': tax['id'],
                         'amount': tax['amount'],
+                        'base': tax['base'],
                         'manual': False,
                         'sequence': tax['sequence'],
                         'account_analytic_id': tax['analytic'] or False,
@@ -312,6 +317,7 @@ class AccountInvoice(models.Model):
                         tax_grouped[key] = val
                     else:
                         tax_grouped[key]['amount'] += val['amount']
+                        tax_grouped[key]['base'] += val['base']
 
         return tax_grouped
 
