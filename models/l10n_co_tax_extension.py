@@ -328,7 +328,7 @@ class AccountInvoice(models.Model):
         if self.type in ('out_invoice', 'out_refund'):
             fp = self.env['account.fiscal.position'].search(
                 [('id', '=', self.company_id.partner_id.property_account_position_id.id)])
-            fp.ensure_one()
+            #fp.ensure_one()
 
             tax_ids = self.env['account.tax'].search([('id', 'in', [tax.tax_id.id for tax in fp.tax_ids_invoice]),
                                                       ('type_tax_use', '=', 'sale'),
