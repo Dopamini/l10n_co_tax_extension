@@ -474,3 +474,74 @@ msgid "|\n"
 msgstr "|\n"
 "                     Rango de Facturación:"
 
+#. module: l10n_co_tax_extension
+#: model:ir.model,name:l10n_co_tax_extension.model_account_invoice
+#: model:ir.ui.view,arch_db:l10n_co_tax_extension.report_invoice_document_inherit
+msgid "Sales Invoice N°"
+msgstr "Factura de Venta N°"
+
+#. module: l10n_co_tax_extension
+#: model:ir.model,name:l10n_co_tax_extension.model_account_invoice
+#: model:ir.ui.view,arch_db:l10n_co_tax_extension.report_invoice_document_inherit
+msgid "Client"
+msgstr "Cliente"
+
+#. module: l10n_co_tax_extension
+#: model:ir.model,name:l10n_co_tax_extension.model_account_invoice
+#: model:ir.ui.view,arch_db:l10n_co_tax_extension.report_invoice_document_inherit
+msgid "Provider"
+msgstr "Proveedor"
+
+#. module: l10n_co_tax_extension
+#: model:ir.model,name:l10n_co_tax_extension.model_account_invoice
+#: model:ir.ui.view,arch_db:l10n_co_tax_extension.report_invoice_document_inherit
+msgid "No identification"
+msgstr "Sin Identificación"
+
+#. module: l10n_co_tax_extension
+#: model:ir.model,name:l10n_co_tax_extension.model_account_invoice
+#: model:ir.ui.view,arch_db:l10n_co_tax_extension.report_invoice_document_inherit
+msgid "Birth Certificate:"
+msgstr "Registro Civil:"
+
+#. module: l10n_co_tax_extension
+#: model:ir.model,name:l10n_co_tax_extension.model_account_invoice
+#: model:ir.ui.view,arch_db:l10n_co_tax_extension.report_invoice_document_inherit
+msgid "Identity Card:"
+msgstr "Tarjeta Identidad:"
+
+#. module: l10n_co_tax_extension
+#: model:ir.model,name:l10n_co_tax_extension.model_account_invoice
+#: model:ir.ui.view,arch_db:l10n_co_tax_extension.report_invoice_document_inherit
+msgid "Citizenship Card:"
+msgstr "Cédula:"
+
+#. module: l10n_co_tax_extension
+#: model:ir.model,name:l10n_co_tax_extension.model_account_invoice
+#: model:ir.ui.view,arch_db:l10n_co_tax_extension.report_invoice_document_inherit
+msgid "Alien Registration Card:"
+msgstr "Tarjeta Extranjería:"
+
+#. module: l10n_co_tax_extension
+#: model:ir.model,name:l10n_co_tax_extension.model_account_invoice
+#: model:ir.ui.view,arch_db:l10n_co_tax_extension.report_invoice_document_inherit
+msgid "Foreigner ID:"
+msgstr "Cédula Extranjería:"
+
+#. module: l10n_co_tax_extension
+#: model:ir.model,name:l10n_co_tax_extension.model_account_invoice
+#: model:ir.ui.view,arch_db:l10n_co_tax_extension.report_invoice_document_inherit
+msgid "Passport:"
+msgstr "Pasaporte:"
+
+#. module: l10n_co_tax_extension
+#: model:ir.model,name:l10n_co_tax_extension.model_account_invoice
+#: model:ir.ui.view,arch_db:l10n_co_tax_extension.report_invoice_document_inherit
+msgid "Foreign Identification Document:"
+msgstr "Identificación Extranjera:"
+
+#. module: l10n_co_tax_extension
+#: model:ir.model,name:l10n_co_tax_extension.model_account_invoice
+#: model:ir.ui.view,arch_db:l10n_co_tax_extension.report_invoice_document_inherit
+msgid "No Foreign Identification"
+msgstr "Sin Identificación del Exterior"
