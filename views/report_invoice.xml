@@ -66,7 +66,7 @@
     <template id="report_invoice_document_inherit" inherit_id="account.report_invoice_document">
 
       <xpath expr="//div/h2/span[1]" position="replace">
-        <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Sales Invoice N°<span t-field="o.number" /></span>
+        <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Sales Invoice N° <span t-field="o.number"/></span>
       </xpath>
 
 
@@ -76,25 +76,45 @@
  
       <xpath expr="//div[@class='clearfix']" position="after">
           <div t-if="o.partner_shipping_id">
-            <br/>
             <strong>Shipping address:</strong>
-            <div t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+
+
+            <t t-if="o.partner_shipping_id.parent_id.name" >
+              <t>
+                <br/>
+                <span t-field="o.partner_shipping_id.parent_id.name"/>, <span t-field="o.partner_shipping_id.name"/>
+                <br/>
+                <span t-field="o.partner_shipping_id.street"/> <span t-field="o.partner_shipping_id.street2"/> <span t-field="o.partner_shipping_id.state_id.name"/> <span t-field="o.partner_shipping_id.xcity.name"/>
+                <br/>
+              </t>
+            </t>
+
+
+            <t t-if="not o.partner_shipping_id.parent_id.name" >
+              <t>
+                <br/>
+                <span t-field="o.partner_shipping_id.name"/> 
+                <br/>
+                <span t-field="o.partner_shipping_id.street"/> <span t-field="o.partner_shipping_id.street2"/> <span t-field="o.partner_shipping_id.state_id.name"/> <span t-field="o.partner_shipping_id.xcity.name"/> 
+                <br/>
+              </t>
+            </t>
             <br/>
           </div>
       </xpath>
 
       <xpath expr="//div[@class='col-xs-5 col-xs-offset-7']" position="replace">
         <div name="invoice_address" class="col-xs-5 col-xs-offset-7">
-            <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')"><h3>Client</h3></span>
-            <span t-if="o.type == 'in_invoice'"><h3>Provider</h3></span>
             <br/>
+            <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')"><strong><h3>Client</h3></strong></span>
+            <span t-if="o.type == 'in_invoice'"><strong><h3>Provider</h3></strong></span>
             <span t-field="o.partner_id.name"/>
             <br/>
             <span t-if="o.partner_id.formatedNit">NIT / DI:<span t-field="o.partner_id.formatedNit"/></span>
             <span t-if="o.partner_id.doctype == 1">No identification</span>
             <span t-if="o.partner_id.doctype == 11">Birth Certificate:<span t-field="o.partner_id.xidentification"/></span>
-            <span t-if="o.partner_id.doctype == 12">Identity Card:<span t-field="o.partner_id.xidentification"/></span>
-            <span t-if="o.partner_id.doctype == 13">Citizenship Card:<span t-field="o.partner_id.xidentification"/></span>
+            <span t-if="o.partner_id.doctype == 12">T.I:<span t-field="o.partner_id.xidentification"/></span>
+            <span t-if="o.partner_id.doctype == 13">C.C:<span t-field="o.partner_id.xidentification"/></span>
             <span t-if="o.partner_id.doctype == 21">Alien Registration Card:<span t-field="o.partner_id.xidentification"/></span>
             <span t-if="o.partner_id.doctype == 22">Foreigner ID:<span t-field="o.partner_id.xidentification"/></span>
             <span t-if="o.partner_id.doctype == 41">Passport:<span t-field="o.partner_id.xidentification"/></span>
@@ -165,6 +185,7 @@
             </div>
         </xpath>
 
+  
         <xpath expr="//div[@class='col-xs-4 pull-right']" position="replace">
             <div class="col-xs-4 pull-right">
                 <table class="table table-condensed">
@@ -174,14 +195,55 @@
                             <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                         </td>
                     </tr>
+
+                    <t t-if="o.tax_line_ids">
+  
+                      <tr t-foreach="o.tax_line_ids" t-as="t">   
+                        <tr style="border-bottom:1px solid #dddddd;">
+                          <t t-if="not t.tax_id.tax_group_id.not_in_invoice">
+                            <td>
+                              <span t-field="t.name"/>
+                            </td>
+                            <td class="text-right">
+                              <span t-field="t.amount" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                          </t>
+                        </tr>
+
+                      </tr>
+                    </t>
+                    <!--
                     <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
+                      
                         <tr>
                             <td><span t-esc="amount_by_group[0] if len(o.tax_line_ids) > 1 else (o.tax_line_ids.tax_id.description or o.tax_line_ids.tax_id.name)"/></td>
                             <td class="text-right">
                                 <span t-esc="amount_by_group[1]"/>
                             </td>
                         </tr>
+
+                                        <tr style="border-bottom:1px solid #dddddd;">
+                                            <t t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
+                                                <td><span t-esc="amount_by_group[0]"/></td>
+                                                <td class="text-right">
+                                                    <span t-esc="amount_by_group[3]" />
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td>
+                                                    <span t-esc="amount_by_group[0]"/>
+                                                    <span>&amp;nbsp;<span>on</span>
+                                                        <t t-esc="amount_by_group[4]"/>
+                                                    </span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="amount_by_group[3]"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+
                     </t>
+                  -->
                     <tr class="border-black">
                         <td><strong>Total</strong></td>
                         <td class="text-right">
