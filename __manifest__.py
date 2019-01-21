@@ -57,5 +57,3 @@ Colombia Impuestos:
 	'application': True,
 	'auto_install': False,
 }
-
-
